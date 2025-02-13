@@ -29,4 +29,34 @@
         "price": 300,
         "img":"Apple1.jpg"
     }
+     {
+        "id": 6,
+        "name": "商品 6",
+        "price": 750,
+        "img":"Apple1.jpg"
+    }
+     {
+        "id": 7,
+        "name": "商品 7",
+        "price": 200,
+        "img":"Apple1.jpg"
+    }
+     {
+        "id": 8,
+        "name": "商品 8",
+        "price": 150,
+        "img":"Apple1.jpg"
+    }
+     {
+        "id": 9,
+        "name": "商品 9",
+        "price": 380,
+        "img":"Apple1.jpg"
+    }
+     {
+        "id": 10,
+        "name": "商品 10",
+        "price": 600,
+        "img":"Apple1.jpg"
+    }
 ]
