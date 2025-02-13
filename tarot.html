@@ -4,32 +4,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fortarot</title>
     <link rel="stylesheet" href="./css/Fortarot.css">
 </head>
 <script>
-    
-    document.querySelector("#start button").addEventListener("click", function () {
-        document.querySelector(".cardlists").classList.add("hover-enabled");
-    })
-</script>
-<style>
-    /* 初始樣式 */
-    .cardlists img {
-        transition: transform 0.3s ease;
+    document.addEventListener("DOMContentLoaded", function () {
+        const tarotCards = [
+            "./image/塔羅牌/力量.jpg",
+            "./image/塔羅牌/女祭司.jpg",
+            "./image/塔羅牌/太陽.jpg",
+            "./image/塔羅牌/月亮.jpg",
+            "./image/塔羅牌/世界.jpg",
+            "./image/塔羅牌/正義.jpg",
+            "./image/塔羅牌/死神.jpg",
+            "./image/塔羅牌/命運之輪.jpg",
+            "./image/塔羅牌/星星.jpg",
+            "./image/塔羅牌/皇后.jpg",
+            "./image/塔羅牌/倒吊人.jpg",
+            "./image/塔羅牌/高塔.jpg",
+            "./image/塔羅牌/國王.jpg",
+            "./image/塔羅牌/教皇.jpg",
+            "./image/塔羅牌/惡魔.jpg",
+            "./image/塔羅牌/愚者.jpg",
+            "./image/塔羅牌/節制.jpg",
+            "./image/塔羅牌/審判.jpg",
+            "./image/塔羅牌/戰車.jpg",
+            "./image/塔羅牌/愚者.jpg",
+            "./image/塔羅牌/魔術師.jpg",
+            "./image/塔羅牌/戀人.jpg"
+        ];
+
+        // 洗牌按鈕的處理
+        document.querySelector("#start button").addEventListener("click", function () {
+            // 先重設卡片
+            const cards = document.querySelectorAll(".cardlists img");
+            tarotCardsOriginal = [...tarotCards]; // 原始牌堆
+            tarotCardsRandom = shuffle([...tarotCards]); // 洗牌後的新牌堆
+
+
+            // 恢復卡片狀態，並顯示卡背
+            cards.forEach((card, index) => {
+                card.src = "./image/塔羅牌/card-back.jpg"; // 恢復卡背
+                card.classList.remove("flipped"); // 恢復未翻開狀態
+                // 重新設置卡片位置，確保不重疊
+                card.style.transform = `rotate(${index * 5}deg) translate(${index * 10}px, -100px)`;
+            });
+
+            // 當按鈕點擊後，啟動卡片選擇功能
+            document.querySelector(".cardlists").classList.add("hover-enabled");
+        });
+
+        // 每張卡牌的交互邏輯
+        const cards = document.querySelectorAll(".cardlists img");
+        cards.forEach(card => {
+            card.addEventListener("mouseenter", function () {
+                this.style.transform = "translateY(10px)";
+                this.style.zIndex = "1000";
+            });
+
+            card.addEventListener("mouseleave", function () {
+                this.style.transform = "translateY(0px)";
+                this.style.zIndex = "";
+            });
+
+            // 點擊抽牌效果
+            card.addEventListener("click", function () {
+                if (!this.classList.contains("flipped") && tarotCardsRandom.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * tarotCardsRandom.length);
+                    this.src = tarotCardsRandom[randomIndex];  // 顯示隨機牌
+                    tarotCardsRandom.splice(randomIndex, 1);   // 移除已抽的牌
+                    this.classList.add("flipped");       // 標記已翻開
+                    this.style.transform = "rotateY(180deg)";
+                }
+            });
+        });
+    });
+
+    // 洗牌函數
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // 交換元素
+        }
+        return array;
     }
 
-    /* 當添加 hover-enabled 類時，啟用 hover 效果 */
-    .hover-enabled:hover img {
-        transform: rotate(calc(var(--i) * 5deg)) translate(calc(var(--i) * 5px), -100px);
+</script>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: blue;
+    }
+
+    img {
+        width: 100px;
+        position: absolute;
+        transition: transform 0.6s, box-shadow 0.3s;
+        transform-origin: 50% 100%;
+    }
+
+    .cardlists {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+
+    .cardlists.hover-enabled img {
+        transform: rotate(calc(var(--i) * 5deg)) translate(calc(var(--i) * 10px), -100px);
         cursor: pointer;
     }
 
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 8px;
+        background-color: #ffcc00;
+        color: #000;
+        font-weight: bold;
+        margin-top: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>
 
 <body>
     <div class="cardlists">
-        <img id="tarot1" class="card"  style="--i:-10;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot1" class="card" style="--i:-10;" src="./image/塔羅牌/card-back.jpg">
         <img id="tarot2" class="card" style="--i:-9;" src="./image/塔羅牌/card-back.jpg">
         <img id="tarot3" class="card" style="--i:-8;" src="./image/塔羅牌/card-back.jpg">
         <img id="tarot4" class="card" style="--i:-7;" src="./image/塔羅牌/card-back.jpg">
@@ -53,9 +162,10 @@
         <img id="tarot22" class="card" style="--i:11;" src="./image/塔羅牌/card-back.jpg">
     </div>
     <div id="start">
-        <button >洗牌</button>
-    </div>
-    
+        <button>洗牌</button>
+        <div id="finish-button" style="display: none;">
+            <button>洗牌完畢，開始選牌</button>
+        </div>
 </body>
 
 </html>
