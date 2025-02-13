@@ -14,50 +14,41 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/forCart.js"></script>
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .product-item img {
+        img {
+            width: 200px;
             height: 200px;
             object-fit: cover;
-            border-radius: 10px;
+            border: 1px solid #ccc;
         }
-
-        .product-item {
-            padding: 10px;
-        }
-
     </style>
-    <script>
-        let cart = new Cart()
-        let products
-        const url = 'https://raw.githubusercontent.com/a0812578/project1/refs/heads/main/shop.json'
-        window.onload = () => {
-            fetch(url)
-                .then(response => response.json())
-                .then(jsonObj => {
-                    products = jsonObj
-                    let html = '<div class="row g-4">'
-                    products.forEach(product => {
-                        html += `
-                            <div class="col-md-4 col-sm-6">
-                                <div class="card product-item shadow-sm">
-                                    <img src="${product.image}" class="card-img-top" alt="${product.name}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${product.name}</h5>
-                                        <p class="card-text">價格: $${product.price}</p>
-                                        <button class="btn btn-primary" onclick="cart.put('${product.pid}')">放入購物車</button>
-                                    </div>
-                                </div>
-                            </div>
-                        `
-                    })
-                    html += '</div>'
-                    document.getElementById('productsList').innerHTML = html
+      <script>
+    
+    let cart = new Cart()
+    let products
+
+    const url = 'https://raw.githubusercontent.com/a0812578/project1/refs/heads/main/shop.json'
+    window.onload = () => {
+        fetch(url)
+            .then(response => response.json())
+            .then(jsonObj => {
+                products = jsonObj
+                let html = ''
+                html += `
+            <p></p>
+        `
+                products.forEach(product => {
+                html += `
+                <img src="${product.img}"><br>
+                商品名稱：${product.name}<br>
+                價格：${product.price}<br>
+                <button onclick="cart.put('${product.name}')">放入購物車</button>
+                <hr>
+            `
                 })
-        }
-    </script>
+                productsList.innerHTML = html
+            })
+    }
+</script>
 </head>
 
 <body>
@@ -81,9 +72,10 @@
     </nav>
 
     <!-- 商品列表 -->
-    <div class="container my-3">
+    <body>
         <div id="productsList"></div>
-    </div>
+        <div id="cartList"></div>
+    </body>
 
     <!-- 頁尾 -->
     <footer class="sticky-footer">

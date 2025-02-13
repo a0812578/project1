@@ -1,6 +1,6 @@
 class Product {
-    constructor(pid) {
-        this.pid = pid
+    constructor(name) {
+        this.name = name
         this.quantity = 1
     }
 }
@@ -10,8 +10,8 @@ class Cart {
         this.products = []
     }
 
-    modify(pid, quantity) {
-     const index = this.products.findIndex(product => product.pid === pid)
+    modify(name, quantity) {
+     const index = this.products.findIndex(product => product.name === name)
         if (quantity == 0) {
             this.products.splice(index, 1)
         } else {
@@ -21,14 +21,14 @@ class Cart {
         // 呼叫後端將資料儲存到資料庫
     }
 
-    put(pid) {
-        const product = this.products.find(product => product.pid === pid)
+    put(name) {
+        const product = this.products.find(product => product.name === name)
         if (product) {
             // 購物車已經有此商品
             product.quantity += 1
         } else {
             // 購物車沒有此商品
-            this.products.push(new Product(pid))
+            this.products.push(new Product(name))
         }
         console.log(this.products)
         // 呼叫後端將資料儲存到資料庫
@@ -52,18 +52,18 @@ class Cart {
             <tr>
                 <th>商品名稱</th>
                 <th>商品價格</th>
-                <th>總價</th>
+                <th>數量</th>
+                <th></th>
                 <th>操作</th>
             </tr>
         `
         this.products.forEach(product => {
             html += `
             <tr>
-                <td>${product.pid}</td>
-                <td>${products.find(p=>p.pid == product.pid ).name}</td>
-                <td>${products.find(p=>p.pid == product.pid ).price}</td>
+                <td>${product.name}</td>
+                <td>${products.find(p=>p.name == product.name ).price}</td>
                 <td>${product.quantity}</td>
-                <td>${products.find(p=>p.pid == product.pid ).price * product.quantity}</td>
+                <td>${products.find(p=>p.name == product.name ).price * product.quantity}</td>
                 <td>
                     <button onclick="modify(this, 1)">+</button>
                     <button onclick="modify(this, -1)">-</button>

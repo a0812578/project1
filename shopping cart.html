@@ -13,8 +13,11 @@
     integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
     crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/forCart.js"></script>
+
 </head>
 <body>
+  <!-- 頁首 -->
     <nav class="sticky-top navbar navbar-expand-sm bg-black navbar-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">小專標題</a>
@@ -43,52 +46,9 @@
           </div>
         </div>
       </nav>
-    <div class="container mt-5">
-        <h2 class="mb-4">購物車</h2>
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>商品</th>
-                    <th>單價</th>
-                    <th>數量</th>
-                    <th>小計</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>商品 1</td>
-                    <td>$100</td>
-                    <td>
-                        <input type="number" class="form-control" value="1" min="1" style="width: 80px;">
-                    </td>
-                    <td>$100</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm">移除</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>商品 2</td>
-                    <td>$200</td>
-                    <td>
-                        <input type="number" class="form-control" value="2" min="1" style="width: 80px;">
-                    </td>
-                    <td>$400</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm">移除</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="d-flex justify-content-between align-items-center mt-4">
-            <h4>總計：$500</h4>
-            <button class="btn btn-success">前往結帳</button>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <div id="cartList"></div>
 </body>
+<!-- 頁尾 -->
 <footer clsee="fixed-bottom">
     <table class=" table table-info">
      <tr >
