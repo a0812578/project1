@@ -30,8 +30,8 @@ img {
             
 }
 /*卡牌跳起來 */
-/* .cardlists img:active{
+.cardlists img:active{
     translate:calc(var(--i)* 5px)-50px;
     z-index: 999;
-} */
+}
 

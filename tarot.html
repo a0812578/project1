@@ -9,7 +9,23 @@
 </head>
 <script>
     
+    document.querySelector("#start button").addEventListener("click", function () {
+        document.querySelector(".cardlists").classList.add("hover-enabled");
+    })
 </script>
+<style>
+    /* 初始樣式 */
+    .cardlists img {
+        transition: transform 0.3s ease;
+    }
+
+    /* 當添加 hover-enabled 類時，啟用 hover 效果 */
+    .hover-enabled:hover img {
+        transform: rotate(calc(var(--i) * 5deg)) translate(calc(var(--i) * 5px), -100px);
+        cursor: pointer;
+    }
+
+</style>
 
 <body>
     <div class="cardlists">
@@ -37,7 +53,7 @@
         <img id="tarot22" class="card" style="--i:11;" src="./image/塔羅牌/card-back.jpg">
     </div>
     <div id="start">
-        <button >開始占卜</button>
+        <button >洗牌</button>
     </div>
     
 </body>
