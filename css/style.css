@@ -45,3 +45,23 @@ img {
   .footer{
     height: 100px; /*設定footer本身高度*/
   }
+
+    #productsList {
+        display: flex;
+        flex-wrap: wrap; /* 讓多餘的商品換行 */
+        gap: 20px; /* 商品間距 */
+    }
+
+    .product-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 8px;
+        width: 200px; /* 每個商品寬度 */
+        text-align: center;
+    }
+
+    .product-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
