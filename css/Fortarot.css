@@ -1,0 +1,43 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: blue;
+    overflow: hidden;
+}
+
+img {
+    width:100px;
+    position:absolute;
+    transition: .5s;
+    transform-origin: 50% 100%;
+}
+
+.cardlists {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    
+}
+
+.cardlists:hover img{
+  transform: rotate(calc(var(--i) * 5deg))
+             translate(calc(var(--i)* 5px),-100px);
+             cursor:pointer;
+            
+}
+
+.cardlists img:active{
+    translate:calc(var(--i)* 5px)-50px;
+    z-index: 999;
+}
+
+#start {
+    position: relative;
+  right:1000px
+}

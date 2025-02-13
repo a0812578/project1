@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "商品 1",
+        "price": 100,
+        "img":"Apple1.jpg"
+    },
+    {
+        "id": 2,
+        "name": "商品 2",
+        "price": 200,
+        "img":"Apple1.jpg"
+    },
+    {
+        "id": 3,
+        "name": "商品 3",
+        "price": 150,
+        "img":"Apple1.jpg"
+    },
+    {
+        "id": 4,
+        "name": "商品 4",
+        "price": 250,
+        "img":"Apple1.jpg"
+    },
+    {
+        "id": 5,
+        "name": "商品 5",
+        "price": 300,
+        "img":"Apple1.jpg"
+    }
+]
