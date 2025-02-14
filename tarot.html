@@ -198,19 +198,36 @@
 
                 if (!this.classList.contains("flipped") && tarotCardsRandom.length > 0) {
                     const randomIndex = Math.floor(Math.random() * tarotCardsRandom.length);
-                    this.src = tarotCardsRandom[randomIndex] // 顯示隨機牌
-                    tarotCardsRandom.splice(randomIndex, 1)   // 移除已抽的牌
-                    this.classList.add("flipped")          // 標記已翻開
-                    selectedCardCount++
-                    selectedCards.push(this.src)// 增加選擇計數
-                    
+                    const cardSrc = tarotCardsRandom[randomIndex]; // 隨機牌
+                    tarotCardsRandom.splice(randomIndex, 1); // 移除已抽的牌
 
-                    // 當選擇了三張牌後，把這些牌放到過去、現在和未來
+                    // 隨機決定是否為逆位
+                    const isReversed = Math.random() < 0.5;
+                    this.style.transform = isReversed ? "rotate(180deg)" : "rotate(0deg)";
+                    this.src = cardSrc;
+                    if (isReversed) {
+                        this.style.transform = "rotate(180deg)"; // 顯示逆位
+                    } else {
+                        this.style.transform = "rotate(0deg)"; // 顯示正位
+                    }
+
+                    this.classList.add("flipped"); // 標記為已翻開
+                    selectedCardCount++;
+                    selectedCards.push(cardSrc);
+
+                    // 當選擇了三張牌後，顯示在對應的位置
                     if (selectedCardCount === 3) {
-                        document.querySelector("#pastCard").src = selectedCards[0]; // 過去
-                        document.querySelector("#presentCard").src = selectedCards[1]; // 現在
-                        document.querySelector("#futureCard").src = selectedCards[2]; // 未來
+                        // 顯示過去卡
+                        document.querySelector("#pastCard").src = selectedCards[0].src;
+                        document.querySelector("#pastCard").style.transform = selectedCards[0].reversed ? "rotate(180deg)" : "rotate(0deg)";
 
+                        // 顯示現在卡
+                        document.querySelector("#presentCard").src = selectedCards[1].src;
+                        document.querySelector("#presentCard").style.transform = selectedCards[1].reversed ? "rotate(180deg)" : "rotate(0deg)";
+
+                        // 顯示未來卡
+                        document.querySelector("#futureCard").src = selectedCards[2].src;
+                        document.querySelector("#futureCard").style.transform = selectedCards[2].reversed ? "rotate(180deg)" : "rotate(0deg)";
 
                         // 顯示格子
                         document.querySelector("#past").style.visibility = "visible";
@@ -218,15 +235,15 @@
                         document.querySelector("#future").style.visibility = "visible";
                     }
 
-                }
-
-                // 禁止更多選擇
-                if (selectedCardCount >= 3) {
-                    card2Elements.forEach(card => {
-                        card.removeEventListener("click", arguments.callee);
-                    });
+                    // 禁止更多選擇
+                    if (selectedCardCount >= 3) {
+                        card2Elements.forEach(card => {
+                            card.removeEventListener("click", arguments.callee);
+                        });
+                    }
                 }
             });
+
         });
 
         // 洗牌函數
@@ -298,15 +315,15 @@
 
         <div id="past" class="cardSlot">
             <p>過去</p>
-            <img src="" id="pastCard" class="cardSlotImg" >
+            <img src="" id="pastCard" class="cardSlotImg">
         </div>
         <div id="present" class="cardSlot">
             <p>現在</p>
-            <img src="" id="presentCard" class="cardSlotImg" >
+            <img src="" id="presentCard" class="cardSlotImg">
         </div>
         <div id="future" class="cardSlot">
             <p>未來</p>
-            <img src="" id="futureCard" class="cardSlotImg" >
+            <img src="" id="futureCard" class="cardSlotImg">
         </div>
 </body>
 
