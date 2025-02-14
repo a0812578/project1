@@ -5,78 +5,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortarot</title>
-    <link rel="stylesheet" href="./css/Fortarot.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: blue;
+            margin: 0;
+        }
+
+        img {
+            width: 100px;
+            position: absolute;
+            transition: transform 0.6s, box-shadow 0.3s;
+            transform-origin: 50% 100%;
+        }
+
+        .cardlists {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffcc00;
+            color: #000;
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cardlists2 {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+        }
+    </style>
 </head>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const tarotCards = [
-            "./image/塔羅牌/力量.jpg",
-            "./image/塔羅牌/女祭司.jpg",
-            "./image/塔羅牌/太陽.jpg",
-            "./image/塔羅牌/月亮.jpg",
-            "./image/塔羅牌/世界.jpg",
-            "./image/塔羅牌/正義.jpg",
-            "./image/塔羅牌/死神.jpg",
-            "./image/塔羅牌/命運之輪.jpg",
-            "./image/塔羅牌/星星.jpg",
-            "./image/塔羅牌/皇后.jpg",
-            "./image/塔羅牌/倒吊人.jpg",
-            "./image/塔羅牌/高塔.jpg",
-            "./image/塔羅牌/國王.jpg",
-            "./image/塔羅牌/教皇.jpg",
-            "./image/塔羅牌/惡魔.jpg",
-            "./image/塔羅牌/愚者.jpg",
-            "./image/塔羅牌/節制.jpg",
-            "./image/塔羅牌/審判.jpg",
-            "./image/塔羅牌/戰車.jpg",
-            "./image/塔羅牌/愚者.jpg",
-            "./image/塔羅牌/魔術師.jpg",
-            "./image/塔羅牌/戀人.jpg"
-        ];
+    const tarotCards = [
+        "./image/塔羅牌/力量.jpg",
+        "./image/塔羅牌/女祭司.jpg",
+        "./image/塔羅牌/太陽.jpg",
+        "./image/塔羅牌/月亮.jpg",
+        "./image/塔羅牌/世界.jpg",
+        "./image/塔羅牌/正義.jpg",
+        "./image/塔羅牌/死神.jpg",
+        "./image/塔羅牌/命運之輪.jpg",
+        "./image/塔羅牌/星星.jpg",
+        "./image/塔羅牌/皇后.jpg",
+        "./image/塔羅牌/倒吊人.jpg",
+        "./image/塔羅牌/高塔.jpg",
+        "./image/塔羅牌/國王.jpg",
+        "./image/塔羅牌/教皇.jpg",
+        "./image/塔羅牌/惡魔.jpg",
+        "./image/塔羅牌/愚者.jpg",
+        "./image/塔羅牌/節制.jpg",
+        "./image/塔羅牌/審判.jpg",
+        "./image/塔羅牌/戰車.jpg",
+        "./image/塔羅牌/愚者.jpg",
+        "./image/塔羅牌/魔術師.jpg",
+        "./image/塔羅牌/戀人.jpg"
+    ];
 
-        // 洗牌按鈕的處理
-        document.querySelector("#start button").addEventListener("click", function () {
-            // 先重設卡片
-            const cards = document.querySelectorAll(".cardlists img");
-            tarotCardsOriginal = [...tarotCards]; // 原始牌堆
-            tarotCardsRandom = shuffle([...tarotCards]); // 洗牌後的新牌堆
+    let tarotCardsRandom = [];
+    let selectedCardCount = 0;
 
-
-            // 恢復卡片狀態，並顯示卡背
-            cards.forEach((card, index) => {
-                card.src = "./image/塔羅牌/card-back.jpg"; // 恢復卡背
-                card.classList.remove("flipped"); // 恢復未翻開狀態
-                // 重新設置卡片位置，確保不重疊
-                card.style.transform = `rotate(${index * 5}deg) translate(${index * 10}px, -100px)`;
-            });
-
-            // 當按鈕點擊後，啟動卡片選擇功能
-            document.querySelector(".cardlists").classList.add("hover-enabled");
+    // 洗牌按鈕處理
+    document.querySelector("#start button").addEventListener("click", function () {
+        const cards = document.querySelectorAll(".cardlists img");
+        cards.forEach((card, index) => {
+            card.src = "./image/塔羅牌/card-back.jpg"; // 顯示卡背
+            card.style.transition = "transform 0.6s, box-shadow 0.3s"; // 讓變換的動畫更明顯
+            card.style.transform = `rotate(${index * 5}deg) translate(${index * 10}px, -100px)`; // 模擬洗牌
         });
 
-        // 每張卡牌的交互邏輯
-        const cards = document.querySelectorAll(".cardlists img");
-        cards.forEach(card => {
-            card.addEventListener("mouseenter", function () {
+        // 顯示“洗牌完畢”按鈕
+        document.querySelector("#finish").style.display = "block";
+        document.querySelector("#start button").style.visibility = "hidden";
+
+    });
+
+    // 鼠標懸停效果
+    const cards = document.querySelectorAll(".cardlists img");
+    cards.forEach(card => {
+        card.addEventListener("mouseenter", function () {
+            if (!card.classList.contains("flipped")) {
                 this.style.transform = "translateY(10px)";
                 this.style.zIndex = "1000";
-            });
+            }
+        });
 
-            card.addEventListener("mouseleave", function () {
-                this.style.transform = "translateY(0px)";
+        card.addEventListener("mouseleave", function () {
+            if (!card.classList.contains("flipped")) {
+                this.style.transform = "";
                 this.style.zIndex = "";
-            });
+            }
+        });
+    });
 
-            // 點擊抽牌效果
-            card.addEventListener("click", function () {
-                if (!this.classList.contains("flipped") && tarotCardsRandom.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * tarotCardsRandom.length);
-                    this.src = tarotCardsRandom[randomIndex];  // 顯示隨機牌
-                    tarotCardsRandom.splice(randomIndex, 1);   // 移除已抽的牌
-                    this.classList.add("flipped");       // 標記已翻開
-                    this.style.transform = "rotateY(180deg)";
-                }
-            });
+    // 點擊“洗牌完畢，開始選牌”
+    document.querySelector("#finish button").addEventListener("click", function () {
+        tarotCardsRandom = shuffle([...tarotCards]); // 洗牌後的新牌堆
+        document.querySelector(".cardlists").style.display = "none"; // 隱藏第一副牌
+        document.querySelector(".cardlists2").style.display = "block"; // 顯示第二副牌
+        document.querySelector("#finish").style.display = "none"; // 隱藏“洗牌完畢”按鈕
+
+        const card2Elements = document.querySelectorAll(".cardlists2 img");
+        card2Elements.forEach((card2, index) => {
+            card2.style.transition = "transform 0.6s"; // 加上過渡效果
+            card2.style.transform = `rotate(${index * 5}deg) translate(${index * 10}px, -100px)`; // 攤開效果
+        });
+    });
+
+    const card2Elements = document.querySelectorAll(".cardlists2 img");
+    card2Elements.forEach(card2 => {
+        // 鼠標懸停效果
+        card2.addEventListener("mouseenter", function () {
+            if (!card2.classList.contains("flipped")) {
+                this.style.zIndex = "1000";
+            }
+        });
+
+        card2.addEventListener("mouseleave", function () {
+            if (!card2.classList.contains("flipped")) {
+                this.style.zIndex = "";
+            }
+        });
+
+        // 點擊選擇卡牌
+        card2.addEventListener("click", function () {
+            if (selectedCardCount >= 3) {
+                alert("你已經選擇了三張牌，不能再選擇！");
+                return;
+            }
+
+            if (!this.classList.contains("flipped") && tarotCardsRandom.length > 0) {
+                const randomIndex = Math.floor(Math.random() * tarotCardsRandom.length);
+                this.src = tarotCardsRandom[randomIndex]; // 顯示隨機牌
+                tarotCardsRandom.splice(randomIndex, 1);   // 移除已抽的牌
+                this.classList.add("flipped");            // 標記已翻開
+                selectedCardCount++; // 增加選擇計數
+            }
+
+            // 禁止更多選擇
+            if (selectedCardCount >= 3) {
+                card2Elements.forEach(card => {
+                    card.removeEventListener("click", arguments.callee);
+                });
+            }
         });
     });
 
@@ -84,57 +176,13 @@
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // 交換元素
+            [array[i], array[j]] = [array[j], array[i]];
         }
         return array;
     }
+});
 
 </script>
-<style>
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: blue;
-    }
-
-    img {
-        width: 100px;
-        position: absolute;
-        transition: transform 0.6s, box-shadow 0.3s;
-        transform-origin: 50% 100%;
-    }
-
-    .cardlists {
-        position: relative;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 50px;
-    }
-
-    .cardlists.hover-enabled img {
-        transform: rotate(calc(var(--i) * 5deg)) translate(calc(var(--i) * 10px), -100px);
-        cursor: pointer;
-    }
-
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border: none;
-        border-radius: 8px;
-        background-color: #ffcc00;
-        color: #000;
-        font-weight: bold;
-        margin-top: 20px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
 
 <body>
     <div class="cardlists">
@@ -161,9 +209,33 @@
         <img id="tarot21" class="card" style="--i:10;" src="./image/塔羅牌/card-back.jpg">
         <img id="tarot22" class="card" style="--i:11;" src="./image/塔羅牌/card-back.jpg">
     </div>
+    <div class="cardlists2" style="display: none">
+        <img id="tarot2-1" class="card2" style="--e:-10;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-2" class="card2" style="--e:-9;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-3" class="card2" style="--e:-8;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-4" class="card2" style="--e:-7;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-5" class="card2" style="--e:-6;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-6" class="card2" style="--e:-5;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-7" class="card2" style="--e:-4;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-8" class="card2" style="--e:-3;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-9" class="card2" style="--e:-2;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-10" class="card2" style="--e:-1;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-11" class="card2" style="--e:0;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-12" class="card2" style="--e:1;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-13" class="card2" style="--e:2;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-14" class="card2" style="--e:3;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-15" class="card2" style="--e:4;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-16" class="card2" style="--e:5;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-17" class="card2" style="--e:6;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-18" class="card2" style="--e:7;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-19" class="card2" style="--e:8;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-20" class="card2" style="--e:9;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-21" class="card2" style="--e:10;" src="./image/塔羅牌/card-back.jpg">
+        <img id="tarot2-22" class="card2" style="--e:11;" src="./image/塔羅牌/card-back.jpg">
+    </div>
     <div id="start">
         <button>洗牌</button>
-        <div id="finish-button" style="display: none;">
+        <div id="finish" style="display: none">
             <button>洗牌完畢，開始選牌</button>
         </div>
 </body>
