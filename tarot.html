@@ -6,37 +6,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortarot</title>
     <style>
+        /* 基本頁面樣式：採用 Flexbox 垂直排列 */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
             background-color: #f0f8ff;
+            width: 100vw;
+            min-height: 100vh;
+            /* 如果不希望所有內容居中，可以去掉 align-items: center */
+            display: flex;
+            flex-direction: column;
+            /* 或改用 align-items: stretch; 讓子元素填滿 */
+            align-items: center;
+            gap: 20px;
         }
 
-        img {
-            width: 120px;
-            position: absolute;
-            transition: transform 0.6s, box-shadow 0.3s;
-            transform-origin: 50% 100%;
+    
+
+        /* 標題 */
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        /* 卡牌區容器 */
+        .cards-container {
+            width: 90%;
+            max-width: 1000px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            position: relative;
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            /* 使容器在頁面中居中 */
         }
 
         .cardlists {
-            position: relative;
-            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 50px;
+            height: 250px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .cardlists img {
+            width: 120px;
+            position: absolute;
+            transition: transform 0.6s, box-shadow 0.3s;
+            transform-origin: center;
         }
 
         .cardlists2 {
             position: relative;
+            height: 150px;
             display: none;
+            margin-bottom: 40px;
+        }
+
+        .cardlists2 .cardWrapper {
+            position: absolute;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cardlists2 .cardWrapper:hover {
+            translate: calc(var(--e)*5px) -5px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+
+        .cardlists2 img {
+            width: 120px;
+        }
+
+        /* 按鈕容器 */
+        .button-container {
+            margin-top: px;
+            display: flex;
+            gap: 20px;
             justify-content: center;
-            align-items: center;
-            z-index: 2;
-            /* 保持較高層級 */
+            width: 100%;
         }
 
         button {
@@ -48,10 +99,6 @@
             background-color: #ffcc00;
             color: #000;
             font-weight: bold;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
             transition: background-color 0.3s;
         }
 
@@ -59,39 +106,39 @@
             background-color: #ff9900;
         }
 
+        /* 結果區 */
+        #resultContainer {
+            width: 90%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 50px;
+        }
+
         .cardSlot {
-            /* 三個格子 */
-            width: 120px;
-            height: 180px;
-            display: inline-block;
-            display: none;
+            width: 240px;
+            height: 360px;
             border: 2px solid #ccc;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            display: none;
+            margin: 20px
+        }
+
+        .cardSlot p {
             text-align: center;
-            position: relative;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+            margin: 5px 0;
+            font-weight: bold;
         }
 
-        .cardSlot:hover {
-            transform: scale(1.05);
-        }
-
-        #past,
-        #present,
-        #future {
-            width: 120px;
-            height: 180px;
-            margin: 30px;
-            position: relative;
-            display: inline-block;
-            visibility: hidden;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-            /* 確保這些不會被覆蓋 */
+        .cardSlotImg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-origin: center;
         }
     </style>
 </head>
@@ -123,35 +170,30 @@
             "./image/塔羅牌/戀人.jpg"
         ];
 
-        let tarotCardsRandom = []
-        let selectedCardCount = 0
-        let selectedCards = []
+        let tarotCardsRandom = [];
+        let selectedCardCount = 0;
+        let selectedCards = [];
 
-        // 洗牌按鈕處理
-        document.querySelector("#start button").addEventListener("click", function () {
+        // 洗牌按鈕
+        document.getElementById("shuffleBtn").addEventListener("click", function () {
             const cards = document.querySelectorAll(".cardlists img");
             cards.forEach((card, index) => {
-                card.src = "./image/塔羅牌/card-back.jpg"; // 顯示卡背
-                card.style.transition = "transform 0.6s, box-shadow 0.3s"; // 讓變換的動畫更明顯
-                card.style.transform = `rotate(${index * 5}deg) translate(${index * 10}px, -100px)`; // 模擬洗牌
+                card.src = "./image/塔羅牌/card-back.jpg";
+                card.style.transition = "transform 0.6s, box-shadow 0.3s";
+                card.style.transform = `rotate(${index * 5}deg) translate(${index * 10}px, -100px)`;
             });
+            document.getElementById("finishBtn").style.display = "block";
 
-            // 顯示“洗牌完畢”按鈕
-            document.querySelector("#finish").style.display = "block";
-            document.querySelector("#start button").style.visibility = "hidden";
+        })
 
-        });
-
-        // 鼠標懸停效果
-        const cards = document.querySelectorAll(".cardlists img");
-        cards.forEach(card => {
+        // 第一副牌 hover
+        document.querySelectorAll(".cardlists img").forEach(card => {
             card.addEventListener("mouseenter", function () {
                 if (!card.classList.contains("flipped")) {
                     this.style.transform = "translateY(10px)";
                     this.style.zIndex = "1000";
                 }
             });
-
             card.addEventListener("mouseleave", function () {
                 if (!card.classList.contains("flipped")) {
                     this.style.transform = "";
@@ -160,82 +202,82 @@
             });
         });
 
-        // 點擊“洗牌完畢，開始選牌”
-        document.querySelector("#finish button").addEventListener("click", function () {
-            tarotCardsRandom = shuffle([...tarotCards]); // 洗牌後的新牌堆
-            document.querySelector(".cardlists").style.display = "none"; // 隱藏第一副牌
-            document.querySelector(".cardlists2").style.display = "flex"; // 顯示第二副牌
-            document.querySelector("#finish").style.visibility = "hidden" // 隱藏“洗牌完畢”按鈕
+        // 洗牌完畢，開始選牌
+        document.getElementById("finishBtn").addEventListener("click", function () {
+            tarotCardsRandom = shuffle([...tarotCards]);
+            document.querySelector(".cardlists").style.display = "none";
+            document.querySelector(".cardlists2").style.display = "block";
+            document.getElementById("finishBtn").style.display = "none";
+            document.getElementById("shuffleBtn").style.display = "none";
 
-            const card2Elements = document.querySelectorAll(".cardlists2 img");
-            card2Elements.forEach((card2, index) => {
-                card2.style.transition = "transform 0.6s"; // 加上過渡效果
-                card2.style.transform = `rotate(${index * 5}deg) translate(${index * 10}px, -100px)`; // 攤開效果
-            });
-        });
+            const wrappers = document.querySelectorAll(".cardlists2 .cardWrapper");
+            wrappers.forEach((wrapper, index) => {
+                wrapper.style.transform = `translateX(${index * 30}px)`;
+                wrapper.dataset.originalTransform = wrapper.style.transform;
+            })
+        })
 
-        const card2Elements = document.querySelectorAll(".cardlists2 img");
-        card2Elements.forEach(card2 => {
-            // 鼠標懸停效果
-            card2.addEventListener("mouseenter", function () {
-                if (!card2.classList.contains("flipped")) {
+        // 第二副牌 hover 效果（僅調整 z-index）
+        document.querySelectorAll(".cardWrapper").forEach(wrapper => {
+            wrapper.addEventListener("mouseenter", function () {
+                const img = this.querySelector("img");
+                if (!img.classList.contains("flipped")) {
                     this.style.zIndex = "1000";
                 }
             });
-
-            card2.addEventListener("mouseleave", function () {
-                if (!card2.classList.contains("flipped")) {
+            wrapper.addEventListener("mouseleave", function () {
+                const img = this.querySelector("img");
+                if (!img.classList.contains("flipped")) {
+                    this.style.transform = this.dataset.originalTransform;
                     this.style.zIndex = "";
                 }
             });
+        });
 
-            // 點擊選擇卡牌
+        // 第二副牌點選事件
+        const card2Elements = document.querySelectorAll(".cardlists2 img");
+        card2Elements.forEach(card2 => {
             card2.addEventListener("click", function () {
                 if (selectedCardCount >= 3) {
                     alert("你已經選擇了三張牌，不能再選擇！");
                     return;
                 }
-
                 if (!this.classList.contains("flipped") && tarotCardsRandom.length > 0) {
+                    // 將 wrapper 移到最上層
+                    const wrapper = this.parentElement;
+                    wrapper.parentNode.appendChild(wrapper);
+
                     const randomIndex = Math.floor(Math.random() * tarotCardsRandom.length);
-                    const cardSrc = tarotCardsRandom[randomIndex]; // 隨機牌
-                    tarotCardsRandom.splice(randomIndex, 1); // 移除已抽的牌
+                    const cardSrc = tarotCardsRandom[randomIndex];
+                    tarotCardsRandom.splice(randomIndex, 1);
 
-                    // 隨機決定是否為逆位
+                    // 隨機決定是否逆位
                     const isReversed = Math.random() < 0.5;
-                    this.style.transform = isReversed ? "rotate(180deg)" : "rotate(0deg)";
+
+                    // 不使用翻牌動畫，直接顯示卡面：
+                    this.style.transition = "none";
                     this.src = cardSrc;
-                    if (isReversed) {
-                        this.style.transform = "rotate(180deg)"; // 顯示逆位
-                    } else {
-                        this.style.transform = "rotate(0deg)"; // 顯示正位
-                    }
+                    this.style.transform = isReversed ? "rotate(-0.5turn)" : "rotate(0deg)";
+                    this.classList.add("flipped");
 
-                    this.classList.add("flipped"); // 標記為已翻開
                     selectedCardCount++;
-                    selectedCards.push(cardSrc);
+                    selectedCards.push({ src: cardSrc, reversed: isReversed });
 
-                    // 當選擇了三張牌後，顯示在對應的位置
                     if (selectedCardCount === 3) {
-                        // 顯示過去卡
-                        document.querySelector("#pastCard").src = selectedCards[0].src;
-                        document.querySelector("#pastCard").style.transform = selectedCards[0].reversed ? "rotate(180deg)" : "rotate(0deg)";
-
-                        // 顯示現在卡
-                        document.querySelector("#presentCard").src = selectedCards[1].src;
-                        document.querySelector("#presentCard").style.transform = selectedCards[1].reversed ? "rotate(180deg)" : "rotate(0deg)";
-
-                        // 顯示未來卡
-                        document.querySelector("#futureCard").src = selectedCards[2].src;
-                        document.querySelector("#futureCard").style.transform = selectedCards[2].reversed ? "rotate(180deg)" : "rotate(0deg)";
-
-                        // 顯示格子
-                        document.querySelector("#past").style.visibility = "visible";
-                        document.querySelector("#present").style.visibility = "visible";
-                        document.querySelector("#future").style.visibility = "visible";
+                        document.getElementById("pastCard").src = selectedCards[0].src;
+                        document.getElementById("pastCard").style.transition = "none"; // 移除過渡
+                        document.getElementById("pastCard").style.transform = selectedCards[0].reversed ? "rotate(-0.5turn)" : "rotate(0deg)";
+                        document.getElementById("presentCard").src = selectedCards[1].src;
+                        document.getElementById("presentCard").style.transition = "none";
+                        document.getElementById("presentCard").style.transform = selectedCards[1].reversed ? "rotate(-0.5turn)" : "rotate(0deg)";
+                        document.getElementById("futureCard").src = selectedCards[2].src;
+                        document.getElementById("futureCard").style.transition = "none";
+                        document.getElementById("futureCard").style.transform = selectedCards[2].reversed ? "rotate(-0.5turn)" : "rotate(0deg)";
+                        document.getElementById("past").style.display = "block";
+                        document.getElementById("present").style.display = "block";
+                        document.getElementById("future").style.display = "block";
                     }
 
-                    // 禁止更多選擇
                     if (selectedCardCount >= 3) {
                         card2Elements.forEach(card => {
                             card.removeEventListener("click", arguments.callee);
@@ -243,10 +285,8 @@
                     }
                 }
             });
-
         });
 
-        // 洗牌函數
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -254,8 +294,7 @@
             }
             return array;
         }
-    });
-
+    })
 </script>
 
 <body>
@@ -284,35 +323,125 @@
         <img id="tarot22" class="card" style="--i:11;" src="./image/塔羅牌/card-back.jpg">
     </div>
     <div class="cardlists2" style="display: none">
-        <img id="tarot2-1" class="card2" style="--e:-10;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-2" class="card2" style="--e:-9;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-3" class="card2" style="--e:-8;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-4" class="card2" style="--e:-7;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-5" class="card2" style="--e:-6;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-6" class="card2" style="--e:-5;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-7" class="card2" style="--e:-4;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-8" class="card2" style="--e:-3;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-9" class="card2" style="--e:-2;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-10" class="card2" style="--e:-1;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-11" class="card2" style="--e:0;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-12" class="card2" style="--e:1;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-13" class="card2" style="--e:2;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-14" class="card2" style="--e:3;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-15" class="card2" style="--e:4;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-16" class="card2" style="--e:5;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-17" class="card2" style="--e:6;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-18" class="card2" style="--e:7;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-19" class="card2" style="--e:8;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-20" class="card2" style="--e:9;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-21" class="card2" style="--e:10;" src="./image/塔羅牌/card-back.jpg">
-        <img id="tarot2-22" class="card2" style="--e:11;" src="./image/塔羅牌/card-back.jpg">
-    </div>
-    <div id="start">
-        <button>洗牌</button>
-        <div id="finish" style="display: none">
-            <button>洗牌完畢，開始選牌</button>
+        <div class="cardWrapper" style="--e:-10">
+            <div class="flip-card">
+                <img id="tarot2-1" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
         </div>
+        <div class="cardWrapper" style="--e:-9">
+            <div class="flip-card">
+                <img id="tarot2-2" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:-8">
+            <div class="flip-card">
+                <img id="tarot2-3" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:-7">
+            <div class="flip-card">
+                <img id="tarot2-4" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:-6">
+            <div class="flip-card">
+                <img id="tarot2-5" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:-5">
+            <div class="flip-card">
+                <img id="tarot2-6" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:-4">
+            <div class="flip-card">
+                <img id="tarot2-7" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:-3">
+            <div class="flip-card">
+                <img id="tarot2-8" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:-2">
+            <div class="flip-card">
+                <img id="tarot2-9" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:-1">
+            <div class="flip-card">
+                <img id="tarot2-10" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:0">
+            <div class="flip-card">
+                <img id="tarot2-11" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:1">
+            <div class="flip-card">
+                <img id="tarot2-12" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:2">
+            <div class="flip-card">
+                <img id="tarot2-13" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:3">
+            <div class="flip-card">
+                <img id="tarot2-14" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:4">
+            <div class="flip-card">
+                <img id="tarot2-15" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:5">
+            <div class="flip-card">
+                <img id="tarot2-16" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:6">
+            <div class="flip-card">
+                <img id="tarot2-17" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:7">
+            <div class="flip-card">
+                <img id="tarot2-18" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:8">
+            <div class="flip-card">
+                <img id="tarot2-19" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:9">
+            <div class="flip-card">
+                <img id="tarot2-20" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:10">
+            <div class="flip-card">
+                <img id="tarot2-21" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+        <div class="cardWrapper" style="--e:11">
+            <div class="flip-card">
+                <img id="tarot2-22" class="card2" src="./image/塔羅牌/card-back.jpg">
+            </div>
+        </div>
+    </div>
 
+    <div class="button-container">
+        <button id="shuffleBtn">洗牌</button>
+        <button id="finishBtn" style="display: none;">洗牌完畢，開始選牌</button>
+    </div>
+
+
+    <div id="resultContainer" style="margin-top:50px;">
         <div id="past" class="cardSlot">
             <p>過去</p>
             <img src="" id="pastCard" class="cardSlotImg">
@@ -325,6 +454,7 @@
             <p>未來</p>
             <img src="" id="futureCard" class="cardSlotImg">
         </div>
+
 </body>
 
 </html>
