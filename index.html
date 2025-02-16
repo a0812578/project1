@@ -1,140 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
-    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
-    integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./css/style.css">
-  <title>小專測試</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>神秘塔羅 - 首頁</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #e0e0e0;
+      font-family: 'Cinzel Decorative', serif;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: #e0e0e0 !important;
+    }
+
+    .nav-link.active {
+      color: #c59d5f !important;
+    }
+
+    /* Carousel */
+    .carousel-item {
+      height: 500px;
+    }
+
+    .carousel-item img {
+      object-fit: cover;
+      height: 100%;
+      filter: brightness(70%);
+    }
+
+    /* Carousel Caption */
+    .carousel-caption {
+      bottom: 40%;
+    }
+
+    .carousel-caption h1 {
+      font-size: 3.5rem;
+      color: #c59d5f;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .carousel-caption p {
+      font-size: 1.5rem;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .main-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .main-content p.lead {
+      font-size: 1.25rem;
+      margin-bottom: 30px;
+    }
+
+    .main-content .btn {
+      background: #c59d5f;
+      border: none;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+    }
+
+    .main-content .btn:hover {
+      background: #a57a3d;
+    }
+
+    /* Footer */
+    footer {
+      background: #1a1a1a;
+      color: #888;
+      padding: 30px 0;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    /* Back-to-Top 按鈕 */
+    #myBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      z-index: 99;
+      background: #c59d5f;
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 5px;
+    }
+  </style>
+  <script>
+    window.onscroll = function () { scrollFunction() };
+    function scrollFunction() {
+      var mybutton = document.getElementById("myBtn");
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
 </head>
 
 <body>
-  <!-- 回頂端按鈕 -->
+  <!-- Back-to-Top 按鈕 -->
   <button onclick="topFunction()" id="myBtn" title="Go to top">回頂部</button>
-  <!-- header -->
-  <nav class="sticky-top navbar navbar-expand-sm bg-black navbar-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">小專標題</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">神秘塔羅</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="切換導覽">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">首頁</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="reserve.html">預約</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="shop.html">商店</a>
-          </li>
-          <a class="nav-link" href="shopping cart.html">購物車</a>
-          <li>
-            <a class="nav-link" href="membership.html">會員登入</a>
-          </li>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">首頁</a></li>
+          <li class="nav-item"><a class="nav-link" href="reserve.html">預約</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html">商店</a></li>
+          <li class="nav-item"><a class="nav-link" href="shopping cart.html">購物車</a></li>
+          <li class="nav-item"><a class="nav-link" href="membership.html">會員登入</a></li>
         </ul>
-        </li>
-        </ul>
-
       </div>
     </div>
   </nav>
-  <!-- 輪播廣告圖 -->
-  <div id="move" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+
+  <!-- Carousel (Hero 區塊) -->
+  <div id="homeCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#move" data-bs-slide-to="0" class="active" aria-current="true"
+      <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active" aria-current="true"
         aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#move" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#move" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
-
       <div class="carousel-item active">
-        <img class="d-block w-100" src="https://dummyimage.com/600x100/00ff5e/ffffff">
+        <img src="https://dummyimage.com/1200x500/000000/444444" class="d-block w-100" alt="Slide 1">
+        <div class="carousel-caption d-none d-md-block">
+          <h1>揭開命運奧秘</h1>
+          <p>塔羅牌將引領你邁向未知的未來</p>
+        </div>
       </div>
       <div class="carousel-item">
-        <img class="d-block w-100" src="https://dummyimage.com/600x100/ff8400/ffffff">
+        <img src="https://dummyimage.com/1200x500/111111/555555" class="d-block w-100" alt="Slide 2">
+        <div class="carousel-caption d-none d-md-block">
+          <h1>探索心靈之旅</h1>
+          <p>每張卡牌都蘊含無限啟示</p>
+        </div>
       </div>
       <div class="carousel-item">
-        <img class="d-block w-100" src="https://dummyimage.com/600x100/f057c5/ffffff">
+        <img src="https://dummyimage.com/1200x500/222222/666666" class="d-block w-100" alt="Slide 3">
+        <div class="carousel-caption d-none d-md-block">
+          <h1>預約占卜體驗</h1>
+          <p>與專業塔羅師共解未來謎題</p>
+        </div>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#move" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+      <span class="visually-hidden">上一頁</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#move" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
+      <span class="visually-hidden">下一頁</span>
     </button>
   </div>
 
-  <div class="container-fluid mt-3">
-    <h3>測試用文字</h3>
-    <p>施工中</p>
-    <div class="outside">
-      <img class="tarot" src="./image/塔羅牌/card-back.jpg">
-      <a href="./tarot.html" class="start btn btn-success">開始占卜</a>
-    </div>
+  <!-- Main Content -->
+  <div class="container main-content">
+    <h2>歡迎來到神秘塔羅</h2>
+    <p class="lead">探索塔羅牌的奧秘，發現屬於你的命運之路。</p>
+    <a href="./tarot.html" class="btn">開始占卜</a>
   </div>
+
   <hr>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <h5>預約塔羅</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">預約資訊</a></li>
+            <li><a href="#">服務項目</a></li>
+            <li><a href="#">客戶見證</a></li>
+            <li><a href="#">聯絡我們</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>塔羅推薦</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">經典塔羅</a></li>
+            <li><a href="#">熱門卡牌</a></li>
+            <li><a href="#">專家解析</a></li>
+            <li><a href="#">學習資源</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>聯絡方式</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">電話: 123-456-7890</a></li>
+            <li><a href="#">Email: info@example.com</a></li>
+            <li><a href="#">地址: 台北市某區</a></li>
+            <li><a href="#">Line: @tarot</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>放圖片</h5>
+          <img src="path-to-image.jpg" alt="Footer Image" class="img-fluid">
+        </div>
+      </div>
+    </div>
+    <div class="bg-dark text-light p-3">
+      © 2025 神秘塔羅
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<!-- footer -->
-<footer class="sticky-footer">
-  <table class=" table table-info">
-    <tr>
-      <th rowspan="4">放圖片</th>
-      <th>預約塔羅</th>
-      <th>塔羅推薦</th>
-      <th>聯絡方式</th>
-    </tr>
-    <tr>
-      <td>B1</td>
-      <td>C1</td>
-      <td>D1</td>
-    </tr>
-    <tr>
-      <td>B2</td>
-      <td>C2</td>
-      <td>D2</td>
-    </tr>
-    <tr>
-      <td>B3</td>
-      <td>C3</td>
-      <td>D3</td>
-    </tr>
-  </table>
-
-</footer>
-<script>
-  let mybutton = document.getElementById("myBtn");
-
-  // When the user scrolls down 20px from the top of the document, show the button
-  window.onscroll = function () { scrollFunction() };
-
-  function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      mybutton.style.display = "block";
-    } else {
-      mybutton.style.display = "none";
-    }
-  }
-
-  // When the user clicks on the button, scroll to the top of the document
-  function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  }
-
-</script>
 
 </html>

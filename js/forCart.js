@@ -1,131 +1,142 @@
-class Product {
-    constructor(name) {
-        this.name = name
-        this.quantity = 1
-    }
-}
-
 class Cart {
     constructor() {
-        this.products = []
+        console.log("Cart 初始化");
+        // 如果 localStorage 沒有購物車資料，初始化為空物件
+        this.cart = JSON.parse(localStorage.getItem("cart")) || {};
+        this.renderCart();
     }
 
-    modify(name, quantity) {
-     const index = this.products.findIndex(product => product.name === name)
-        if (quantity == 0) {
-            this.products.splice(index, 1)
+    // 新增產品：傳入產品名稱、圖片、價格
+    put(productName, img, price) {
+        if (this.cart[productName]) {
+            this.cart[productName].quantity++;
         } else {
-            this.products[index].quantity =quantity
+            this.cart[productName] = {
+                name: productName,
+                img: img,
+                price: price,
+                quantity: 1,
+            };
         }
-        console.log(this.products)
-        // 呼叫後端將資料儲存到資料庫
+        this.saveCart();
+        this.renderCart();
+        alert(productName + " 已加入購物車！");
     }
 
-    put(name) {
-        const product = this.products.find(product => product.name === name)
-        if (product) {
-            // 購物車已經有此商品
-            product.quantity += 1
+    // 增加數量
+    increase(productName) {
+        if (this.cart[productName]) {
+            this.cart[productName].quantity++;
+            this.saveCart();
+            this.renderCart();
+        }
+    }
+
+    // 減少數量
+    decrease(productName) {
+        if (this.cart[productName]) {
+            this.cart[productName].quantity--;
+            if (this.cart[productName].quantity <= 0) {
+                delete this.cart[productName];
+            }
+            this.saveCart();
+            this.renderCart();
+        }
+    }
+
+    // 完全移除該商品
+    remove(productName) {
+        if (this.cart[productName]) {
+            delete this.cart[productName];
+            this.saveCart();
+            this.renderCart();
+        }
+    }
+
+    // 清空購物車
+    clearCart() {
+        if (confirm("確定要清空購物車嗎?")) {
+            this.cart = {};
+            this.saveCart();
+            this.renderCart();
+        }
+    }
+
+
+    // 將購物車資料存入 localStorage
+    saveCart() {
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+    }
+
+    // 使用 Bootstrap 的 table 呈現購物車內容
+    renderCart() {
+        let cartContainer = document.getElementById("cartList");
+        if (!cartContainer) return;
+        let html = "";
+        if (Object.keys(this.cart).length === 0) {
+            html = `<div class="alert alert-info" role="alert">
+                    購物車空空如也
+                  </div>`;
         } else {
-            // 購物車沒有此商品
-            this.products.push(new Product(name))
+            html = `<div class="table-responsive">
+                    <table class="table table-bordered table-sm align-middle">
+                      <thead class="table-light">
+                        <tr>
+                          <th>商品圖</th>
+                          <th>商品名稱</th>
+                          <th>單價</th>
+                          <th>數量</th>
+                          <th>小計</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>`;
+            let total = 0;
+            for (let productName in this.cart) {
+                let product = this.cart[productName];
+                let price = parseFloat(product.price);
+                let subtotal = price * product.quantity;
+                total += subtotal;
+                html += `<tr>
+                       <td>
+                         <img src="${product.img}" alt="${product.name}" style="width:100px; height:100px; object-fit:cover;">
+                       </td>
+                       <td>${product.name}</td>
+                       <td>${price.toFixed(0)}</td>
+                       <td style="width: 80px;">
+                         <div class="d-flex align-items-center justify-content-center">
+                           <button class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem;" onclick="cart.decrease('${product.name}')">-</button>
+                           <span class="mx-1 text-center" style="min-width: 30px; display: inline-block;">${product.quantity}</span>
+                           <button class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem;" onclick="cart.increase('${product.name}')">+</button>
+                         </div>
+                       </td>
+                       <td>${subtotal.toFixed(0)}</td>
+                       <td>
+                         <button class="btn btn-sm btn-danger" onclick="cart.remove('${product.name}')">刪除</button>
+                       </td>
+                     </tr>`;
+            }
+            html += `</tbody>
+                   <tfoot>
+                     <tr>
+                       <td colspan="4" class="text-end">總價：</td>
+                       <td>${total.toFixed(0)}</td>
+                       <td></td>
+                     </tr>
+                   </tfoot>
+                   </table>
+                 </div>`;
+            html += `<div class="mt-3">
+                     <button class="btn btn-warning" onclick="cart.clearCart()">清空購物車</button>
+                   </div>`;
         }
-        console.log(this.products)
-        // 呼叫後端將資料儲存到資料庫
-    }
-
-    show(htmlProductsList, htmlCartList, products) {
-        document.getElementById(htmlProductsList).style.display = 'none'
-        document.getElementById(htmlCartList).style.display = 'block'
-        const cartList = document.getElementById(htmlCartList)
-
-        let html = ''
-        html += `
-            <button onclick="
-                document.getElementById('${htmlProductsList}').style.display = 'block';
-                document.getElementById('${htmlCartList}').style.display = 'none';
-            ">繼續購物</button> 
-        `
-        html += `
-            <p>
-            <table border="1">
-            <tr>
-                <th>商品名稱</th>
-                <th>商品價格</th>
-                <th>數量</th>
-                <th></th>
-                <th>操作</th>
-            </tr>
-        `
-        this.products.forEach(product => {
-            html += `
-            <tr>
-                <td>${product.name}</td>
-                <td>${products.find(p=>p.name == product.name ).price}</td>
-                <td>${product.quantity}</td>
-                <td>${products.find(p=>p.name == product.name ).price * product.quantity}</td>
-                <td>
-                    <button onclick="modify(this, 1)">+</button>
-                    <button onclick="modify(this, -1)">-</button>
-                </td>
-            </tr>
-            `
-        })
-        html += '</table>'
-        cartList.innerHTML = html
-
-        this.cartListDecorator(htmlCartList)
-    }
-
-    cartListDecorator(htmlCartList) {
-        const cartList = document.getElementById(htmlCartList)
-        const tbody = cartList.lastElementChild.firstElementChild
-        tbody.firstElementChild.style.backgroundColor = 'lightgray'
-        for(let i = 2; i < tbody.children.length; i+=2) {
-            tbody.children[i].style.backgroundColor = 'lightgreen'
-        }
+        cartContainer.innerHTML = html;
     }
 }
 
-function modify(button, num) {
-    const pid = button
-    .parentElement
-    .parentElement
-    .firstElementChild
-
-    const price = button
-    .parentElement
-    .previousElementSibling
-    .previousElementSibling
-    .previousElementSibling
-
-    const quantity = button
-    .parentElement
-    .previousElementSibling
-    .previousElementSibling
-
-    const total = button
-    .parentElement
-    .previousElementSibling
-
-    let quantityValue = parseInt(quantity.textContent) + num
-    if (quantityValue == 0) {
-        if (confirm('本商品將被刪除')) {
-            button
-            .parentElement
-            .parentElement
-            .remove()
-
-            cart.modify(pid.textContent, quantityValue)
-            cart.cartListDecorator('cartList')
-            return
-        }
-        quantityValue += 1
+// 用 DOMContentLoaded 確保 DOM 載入完成再初始化
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById("cartList") && typeof cart === 'undefined') {
+        window.cart = new Cart();
     }
-    const priceValue = parseInt(price.textContent)
-
-    quantity.textContent = quantityValue
-    total.textContent = priceValue * quantityValue
-    cart.modify(pid.textContent, quantityValue)
-}
-
+});

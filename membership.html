@@ -1,68 +1,186 @@
 <!DOCTYPE html>
-<html lang="zh-tw">
+<html lang="zh">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>加入會員</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
-        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
-        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
-        crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="./css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>會員登入 - 神秘塔羅</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #e0e0e0;
+      font-family: 'Cinzel Decorative', serif;
+    }
+
+    /* Navbar 深色半透明 */
+    .navbar {
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: #e0e0e0 !important;
+    }
+
+    .nav-link.active {
+      color: #c59d5f !important;
+    }
+
+    /* 登入卡片：玻璃感 */
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card-title {
+      color: #c59d5f;
+      font-weight: 700;
+    }
+
+    label.form-label {
+      color: #e0e0e0;
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      box-shadow: none;
+      border-color: #c59d5f;
+    }
+
+    .btn-primary {
+      background: #c59d5f;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: #b38a4d;
+    }
+
+    a {
+      color: #c59d5f;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #b38a4d;
+    }
+
+    /* Footer */
+    footer {
+      background: #1a1a1a;
+      color: #888;
+      padding: 30px 0;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body>
-    <nav class="sticky-top navbar navbar-expand-sm bg-black navbar-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">小專標題</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">首頁</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="reserve.html">預約</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="shop.html">商店</a>
-              </li>  
-              <a class="nav-link" href="shopping cart.html">購物車</a>
-              <li>
-                <a class="nav-link" href="membership.html">會員登入</a>
-              </li>
-                </ul>
-              </li>
-            </ul>
-            
+
+<body class="d-flex flex-column min-vh-100">
+  <!-- 導覽列 -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">神秘塔羅</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="切換導覽">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+          <li class="nav-item"><a class="nav-link" href="reserve.html">預約</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html">商店</a></li>
+          <li class="nav-item"><a class="nav-link" href="shopping cart.html">購物車</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="membership.html">會員登入</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主內容區 -->
+  <div class="container my-4 flex-grow-1">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-4">
+          <h3 class="card-title text-center mb-4">會員登入</h3>
+          <form action="login-process.php" method="post">
+            <div class="mb-3">
+              <label for="username" class="form-label">帳號</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="請輸入帳號" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">密碼</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="請輸入密碼" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">登入</button>
+            </div>
+          </form>
+          <div class="text-center mt-3">
+            <a href="register.html">還沒有帳號？立即註冊</a>
           </div>
         </div>
-      </nav>
-    <div class="container mt-5">
-        <h2>加入會員</h2>
-        <form>
-            <div class="form-group">
-                <label for="username">使用者名稱</label>
-                <input type="text" class="form-control" id="username" placeholder="輸入使用者名稱">
-            </div>
-            <div class="form-group">
-                <label for="email">電子郵件</label>
-                <input type="email" class="form-control" id="email" placeholder="輸入電子郵件">
-            </div>
-            <div class="form-group">
-                <label for="password">密碼</label>
-                <input type="password" class="form-control" id="password" placeholder="輸入密碼">
-            </div>
-            <button type="submit" class="btn btn-primary">提交</button>
-        </form>
+      </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </div>
+
+  <!-- 頁尾 -->
+  <footer class="text-center text-lg-start mt-auto">
+    <div class="container p-4">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5>預約塔羅</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5>塔羅推薦</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5>聯絡方式</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">電話: 123-456-7890</a></li>
+            <li><a href="#">Email: info@example.com</a></li>
+            <li><a href="#">地址: 台北市某區</a></li>
+            <li><a href="#">Line: @tarot</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5>放圖片</h5>
+          <img src="path-to-image.jpg" alt="Footer Image" class="img-fluid">
+        </div>
+      </div>
+    </div>
+    <div class="bg-dark text-light p-3">
+      © 2025 神秘塔羅
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
