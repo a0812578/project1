@@ -66,13 +66,13 @@
 
         /* Footer */
         footer {
-            background: #1a1a1a;
-            color: #888;
-            padding: 30px 0;
+            background: #2c2c2c;
+            color: #e0dcd3;
+            padding: 20px 0;
         }
 
         footer a {
-            color: #888;
+            color: #e0dcd3;
             text-decoration: none;
         }
     </style>
@@ -82,6 +82,13 @@
             window.cart = new Cart();
             let products;
             const url = './shop.json'; // 修改為本地端路徑
+            function addToCart(name, img, price) {
+                if (!window.cart) {
+                    console.error("❌ 錯誤：購物車未初始化！");
+                    return;
+                }
+                window.cart.addItem(name, img, price);
+            }
 
             fetch(url)
                 .then(response => response.json())
@@ -96,7 +103,8 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">${product.name}</h5>
                                 <p class="card-text">價格：$${product.price}</p>
-                                <button class="btn btn-primary mt-auto" onclick="addToCart('${product.name}', '${product.img}', ${product.price})">放入購物車</button>
+          <button class="btn btn-primary mt-auto" onclick="cart.put('${product.name}', '${product.img}', ${product.price})">
+    放入購物車</button>
                             </div>
                         </div>
                     </div>
@@ -114,7 +122,7 @@
 
 <body class="d-flex flex-column min-vh-100">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">神秘塔羅</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -141,38 +149,38 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-center text-lg-start mt-auto">
-        <div class="container p-4">
+    <footer class="text-center">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5 class="text-uppercase">預約塔羅</h5>
+                <div class="col-md-3">
+                    <h5>預約塔羅</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#!" class="text-light">Link 1</a></li>
-                        <li><a href="#!" class="text-light">Link 2</a></li>
-                        <li><a href="#!" class="text-light">Link 3</a></li>
-                        <li><a href="#!" class="text-light">Link 4</a></li>
+                        <li><a href="#">預約資訊</a></li>
+                        <li><a href="#">服務項目</a></li>
+                        <li><a href="#">客戶見證</a></li>
+                        <li><a href="#">聯絡我們</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5 class="text-uppercase">塔羅推薦</h5>
+                <div class="col-md-3">
+                    <h5>塔羅推薦</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#!" class="text-light">Link 1</a></li>
-                        <li><a href="#!" class="text-light">Link 2</a></li>
-                        <li><a href="#!" class="text-light">Link 3</a></li>
-                        <li><a href="#!" class="text-light">Link 4</a></li>
+                        <li><a href="#">經典塔羅</a></li>
+                        <li><a href="#">熱門卡牌</a></li>
+                        <li><a href="#">專家解析</a></li>
+                        <li><a href="#">學習資源</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5 class="text-uppercase">聯絡方式</h5>
+                <div class="col-md-3">
+                    <h5>聯絡方式</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#!" class="text-light">Link 1</a></li>
-                        <li><a href="#!" class="text-light">Link 2</a></li>
-                        <li><a href="#!" class="text-light">Link 3</a></li>
-                        <li><a href="#!" class="text-light">Link 4</a></li>
+                        <li><a href="#">電話: 123-456-7890</a></li>
+                        <li><a href="#">Email: info@example.com</a></li>
+                        <li><a href="#">地址: 台北市某區</a></li>
+                        <li><a href="#">Line: @tarot</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5 class="text-uppercase">放圖片</h5>
+                <div class="col-md-3">
+                    <h5>放圖片</h5>
                     <img src="path-to-image.jpg" alt="Footer Image" class="img-fluid">
                 </div>
             </div>

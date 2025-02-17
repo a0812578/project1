@@ -20,7 +20,7 @@ class Cart {
         }
         this.saveCart();
         this.renderCart();
-        alert(productName + " 已加入購物車！");
+        alert( " 已加入購物車！");
     }
 
     // 增加數量
