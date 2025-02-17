@@ -2,61 +2,61 @@
     {
         "id": 1,
         "name": "萊德偉特塔羅牌普級鐵盒版 Universal waite tarot deck in a tin【鐵盒版】",
-        "price": 100,
-        "img":"project1/image/Universal-waite-tarot-deck-in-a-tin.jpg"
+        "price": 600,
+        "img":"./image/Universal-waite-tarot-deck-in-a-tin.jpg"
     },
     {
         "id": 2,
-        "name": "商品 2",
-        "price": 200,
+        "name": "史密斯偉特塔羅牌百年紀念鐵盒版 Smith-Waite Centennial Tarot Deck in a Tin【鐵盒版】",
+        "price": 600,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     },
     {
         "id": 3,
-        "name": "商品 3",
-        "price": 150,
+        "name": "萊德偉特塔羅牌普及燙金版 Golden Universal Tarot【燙金版】",
+        "price": 630,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     },
     {
         "id": 4,
-        "name": "商品 4",
-        "price": 250,
+        "name": "日月塔羅牌【鐵盒版】Sun and Moon in a Tin",
+        "price": 620,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     },
     {
         "id": 5,
-        "name": "商品 5",
-        "price": 300,
+        "name": "白貓塔羅牌 Tarot of White Cats",
+        "price": 660,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     },
      {
         "id": 6,
-        "name": "商品 6",
+        "name": "萊德偉特塔羅牌金黑版 Tarot Gold and Black Edition【燙金版】",
         "price": 750,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     },
      {
         "id": 7,
-        "name": "商品 7",
-        "price": 200,
+        "name": "預言家動畫塔羅牌 The Fablemaker’s Animated Tarot Deck",
+        "price": 1900,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     },
      {
         "id": 8,
-        "name": "商品 8",
-        "price": 150,
+        "name": "克勞利托特塔羅牌口袋版 Aleister Crowley Thoth Tarot Standard【口袋版】",
+        "price": 570,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     },
      {
         "id": 9,
-        "name": "商品 9",
-        "price": 380,
+        "name": "彩虹卡 Rainbow Cards",
+        "price": 600,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     },
      {
         "id": 10,
-        "name": "商品 10",
-        "price": 600,
+        "name": "小熊軟糖塔羅牌【鐵盒版】Gummy Bear Tarot Tin",
+        "price": 620,
         "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Apples_in_basket_2018_G2.jpg/330px-Apples_in_basket_2018_G2.jpg"
     }
 ]
