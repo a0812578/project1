@@ -9,20 +9,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
     <script src="./js/forCart.js"></script>
     <style>
+        /* 整體背景與字體設定 */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
         body {
-            background: #0d0d0d;
-            color: #e0e0e0;
-            font-family: 'Cinzel Decorative', serif;
+            background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%);
+            color: #e0dcd3;
+            font-family: 'Cinzel', serif;
         }
 
         /* Navbar */
         .navbar {
-            background: rgba(0, 0, 0, 0.85);
+            background: #2c2c2c;
         }
 
         .navbar-brand,
         .nav-link {
-            color: #e0e0e0 !important;
+            color: #e0dcd3 !important;
+            font-weight: 700;
+            font-size: 1.1rem;
+
         }
 
         .nav-link.active {
@@ -51,6 +57,9 @@
         .btn-primary {
             background: #c59d5f;
             border: none;
+            font-weight: bold;
+            font-size: 1rem;
+            /* 統一按鈕字體 */
         }
 
         .btn-primary:hover {
@@ -74,6 +83,93 @@
         footer a {
             color: #e0dcd3;
             text-decoration: none;
+        }
+
+        /* 小螢幕 RWD 調整 */
+        @media (max-width: 768px) {
+            .navbar {
+                background: #2c2c2c;
+            }
+
+            .navbar-brand {
+                font-size: 1.2rem;
+                /* 讓品牌名稱更顯眼 */
+            }
+
+            .nav-link {
+                font-size: 1.1rem;
+            }
+
+            .navbar-toggler {
+                border-color: #c59d5f;
+                /* 漢堡選單邊框顏色 */
+            }
+
+            .navbar-toggler-icon {
+                background-color: #c59d5f;
+                /* 漢堡選單顏色 */
+            }
+
+            footer {
+                padding: 10px 0;
+                /* 調整 footer 的間距 */
+            }
+
+            /* 商品卡片 */
+            .card {
+                background: rgba(255, 255, 255, 0.15);
+                /* 在小螢幕上提高透明度 */
+            }
+
+            .card-img-top {
+                height: 200px;
+                /* 在小螢幕下減小卡片圖片高度 */
+            }
+
+            /* 調整按鈕字體大小 */
+            .btn-primary {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand {
+                font-size: 1rem;
+            }
+
+            .nav-link {
+                font-size: 1rem;
+                /* 增加導航文字大小 */
+            }
+
+            footer {
+                padding: 10px 0;
+            }
+
+            .navbar-toggler {
+                border-color: #c59d5f;
+                /* 漢堡選單邊框顏色 */
+            }
+
+            .navbar-toggler-icon {
+                background-color: #c59d5f
+                /* 漢堡選單顏色 */
+            }
+
+            .card-title {
+                font-size: 1rem;
+                /* 在小螢幕下減小卡片標題字體 */
+            }
+
+            .btn-primary {
+                font-size: 0.9rem;
+                /* 在小螢幕下調整按鈕字體大小 */
+            }
+
+            .card-img-top {
+                height: 180px;
+                /* 在最小螢幕上調整卡片圖片高度 */
+            }
         }
     </style>
     <script>
@@ -122,23 +218,24 @@
 
 <body class="d-flex flex-column min-vh-100">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">神秘塔羅</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
-                    <li class="nav-item"><a class="nav-link" href="reserve.html">預約</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="shop.html">商店</a></li>
-                    <li class="nav-item"><a class="nav-link" href="shopping cart.html">購物車</a></li>
-                    <li class="nav-item"><a class="nav-link" href="membership.html">會員登入</a></li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">神秘塔羅</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+              <li class="nav-item"><a class="nav-link" href="reserve.html">預約</a></li>
+              <li class="nav-item"><a class="nav-link active" href="shop.html">商店</a></li>
+              <li class="nav-item"><a class="nav-link" href="shopping cart.html">購物車</a></li>
+              <li class="nav-item"><a class="nav-link" href="membership.html">會員登入</a></li>
+            </ul>
+          </div>
         </div>
-    </nav>
+      </nav>
 
     <!-- 主內容區 -->
     <div class="container my-4 flex-grow-1">

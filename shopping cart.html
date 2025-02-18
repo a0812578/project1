@@ -12,27 +12,43 @@
     body {
       background: #0d0d0d;
       color: #e0e0e0;
-      font-family: 'Cinzel Decorative', serif;
+      font-family: 'Cinzel', serif;
+      /* 設定字體為Cinzel，和reserve一致 */
     }
 
-    /* Navbar 深色半透明 */
+    /* Navbar */
     .navbar {
-      background: rgba(0, 0, 0, 0.85);
+      background: #2c2c2c;
+      /* 深灰色背景 */
     }
 
     .navbar-brand,
     .nav-link {
-      color: #e0e0e0 !important;
+      color: #e0dcd3 !important;
+      font-weight: 700;
+      /* 字體加粗 */
+      font-size: 1.1rem;
+      /* 統一字體大小 */
     }
 
     .nav-link.active {
       color: #c59d5f !important;
+      /* 當選中時，導航列文字會變為金色 */
+    }
+
+    .navbar-toggler {
+      border-color: #c59d5f;
+      /* 漢堡選單邊框顏色 */
+    }
+
+    .navbar-toggler-icon {
+      background-color: #c59d5f;
+      /* 漢堡選單顏色 */
     }
 
     /* 購物車表格玻璃感效果 */
     .cart-table {
       background: rgba(255, 255, 255, 0.1);
-      /* 調高透明度，讓底層背景不那麼深 */
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(5px);
       border-radius: 10px;
@@ -77,12 +93,67 @@
       color: #e0dcd3;
       text-decoration: none;
     }
+
+    /* 小螢幕 RWD 調整 */
+    @media (max-width: 768px) {
+      .navbar {
+        background: #2c2c2c;
+        /* 深灰色背景 */
+      }
+
+      .navbar-toggler {
+        border-color: #c59d5f;
+        /* 漢堡選單邊框顏色 */
+      }
+
+      .navbar-toggler-icon {
+        background-color: #c59d5f;
+        /* 漢堡選單顏色 */
+      }
+
+      .nav-link {
+        font-size: 1rem;
+        /* 小螢幕上適當調整字體大小 */
+      }
+
+      /* 購物車表格 */
+      .cart-table {
+        background: rgba(255, 255, 255, 0.15);
+        /* 在小螢幕上提高透明度 */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        background: #2c2c2c;
+        /* 深灰色背景 */
+      }
+
+      .navbar-toggler {
+        border-color: #c59d5f;
+      }
+
+      .navbar-toggler-icon {
+        background-color: #c59d5f;
+      }
+
+      .nav-link {
+        font-size: 1rem;
+        /* 增加字體大小，方便閱讀 */
+      }
+
+      .cart-table {
+        background: rgba(255, 255, 255, 0.2);
+        /* 在最小螢幕上提高透明度 */
+      }
+    }
   </style>
+</head>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg sticky-top">
+  <nav class="navbar navbar-expand-lg   navbar-dark sticky-top">
     <div class="container">
       <a class="navbar-brand" href="#">神秘塔羅</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

@@ -11,21 +11,38 @@
     body {
       background: #0d0d0d;
       color: #e0e0e0;
-      font-family: 'Cinzel Decorative', serif;
+      font-family: 'Cinzel', serif;
+      /* 設定字體為Cinzel，和reserve一致 */
     }
 
-    /* Navbar 深色半透明 */
+    /* Navbar */
     .navbar {
-      background: rgba(0, 0, 0, 0.85);
+      background: #2c2c2c;
+      /* 深灰色背景 */
     }
 
     .navbar-brand,
     .nav-link {
-      color: #e0e0e0 !important;
+      color: #e0dcd3 !important;
+      font-weight: 700;
+      /* 字體加粗 */
+      font-size: 1.1rem;
+      /* 統一字體大小 */
     }
 
     .nav-link.active {
       color: #c59d5f !important;
+      /* 當選中時，導航列文字會變為金色 */
+    }
+
+    .navbar-toggler {
+      border-color: #c59d5f;
+      /* 漢堡選單邊框顏色 */
+    }
+
+    .navbar-toggler-icon {
+      background-color: #c59d5f;
+      /* 漢堡選單顏色 */
     }
 
     /* 登入卡片：玻璃感 */
@@ -87,6 +104,74 @@
     footer a {
       color: #e0dcd3;
       text-decoration: none;
+    }
+
+    /* 小螢幕 RWD 調整 */
+    @media (max-width: 768px) {
+      .navbar {
+        background: #2c2c2c;
+        /* 深灰色背景 */
+      }
+
+      .navbar-toggler {
+        border-color: #c59d5f;
+        /* 漢堡選單邊框顏色 */
+      }
+
+      .navbar-toggler-icon {
+        background-color: #c59d5f;
+        /* 漢堡選單顏色 */
+      }
+
+      .nav-link {
+        font-size: 1rem;
+        /* 小螢幕上適當調整字體大小 */
+      }
+
+      .card-title {
+        font-size: 1.2rem;
+        /* 增加卡片標題字體大小 */
+      }
+
+      .btn-primary {
+        font-size: 1rem;
+        /* 按鈕字體大小 */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        background: #2c2c2c;
+        /* 深灰色背景 */
+      }
+
+      .navbar-toggler {
+        border-color: #c59d5f;
+      }
+
+      .navbar-toggler-icon {
+        background-color: #c59d5f;
+      }
+
+      .nav-link {
+        font-size: 1rem;
+        /* 增加字體大小，方便閱讀 */
+      }
+
+      .card-title {
+        font-size: 1rem;
+        /* 在小螢幕下減小卡片標題字體 */
+      }
+
+      .btn-primary {
+        font-size: 0.9rem;
+        /* 在小螢幕下調整按鈕字體大小 */
+      }
+
+      .form-control {
+        font-size: 0.9rem;
+        /* 調整表單欄位字體大小 */
+      }
     }
   </style>
 </head>

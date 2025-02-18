@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>預約我們 - 神秘塔羅</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- 你也可以在 style.css 裡統一管理風格 -->
   <style>
     /* 整體背景與字體設定 */
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
@@ -26,13 +25,15 @@
     .nav-link {
       color: #e0dcd3 !important;
       font-weight: 700;
+      font-size: 1.1rem;
+
     }
 
     .nav-link.active {
       color: #c59d5f !important;
     }
 
-    /* Hero 區塊：使用神秘塔羅背景 (請將 tarot-bg.jpg 換成適合的圖片) */
+    /* Hero 區塊 */
     .hero {
       position: relative;
       background: url('./image/tarot-bg.jpg') center center/cover no-repeat;
@@ -112,10 +113,119 @@
       width: 50px;
       height: auto;
     }
+
+    /* 小螢幕 RWD 調整 */
+    @media (max-width: 768px) {
+      .hero {
+        height: 300px;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+
+      .reservation-options .card {
+        background: rgba(255, 255, 255, 0.15);
+        /* 讓卡片背景在小螢幕更清晰 */
+      }
+
+      .reservation-options .card-title {
+        font-size: 1.2rem;
+        /* 調整卡片標題字體大小 */
+      }
+
+      .reservation-options .btn {
+        font-size: 1rem;
+        /* 調整按鈕字體大小 */
+      }
+
+      .navbar {
+        background: #2c2c2c;
+      }
+
+      .navbar-brand {
+        font-size: 1.2rem;
+        /* 讓品牌名稱更顯眼 */
+      }
+
+      .nav-link {
+        font-size: 1.1rem;
+      }
+
+      .navbar-toggler {
+        border-color: #c59d5f;
+        /* 漢堡選單邊框顏色 */
+      }
+
+      .navbar-toggler-icon {
+        background-color: #c59d5f;
+        /* 漢堡選單顏色 */
+      }
+
+      footer {
+        padding: 10px 0;
+        /* 調整 footer 的間距 */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 250px;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-content p {
+        font-size: 0.9rem;
+      }
+
+      .reservation-options .card {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .reservation-options .card-title {
+        font-size: 1rem;
+        /* 調整卡片標題字體大小 */
+      }
+
+      .reservation-options .btn {
+        font-size: 0.9rem;
+        /* 調整按鈕字體大小 */
+      }
+
+      .navbar-brand {
+        font-size: 1rem;
+      }
+
+      .nav-link {
+        font-size: 1rem;
+        /* 增加導航文字大小 */
+      }
+
+      footer {
+        padding: 10px 0;
+      }
+
+      .navbar-toggler {
+        border-color: #c59d5f;
+        /* 漢堡選單邊框顏色 */
+      }
+
+      .navbar-toggler-icon {
+        background-color: #c59d5f;
+        /* 漢堡選單顏色 */
+      }
+    }
   </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
@@ -127,7 +237,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="reserve.html">預約</a></li>
+          <li class="nav-item"><a class="nav-link active" href="reserve.html">預約</a></li>
           <li class="nav-item"><a class="nav-link" href="shop.html">商店</a></li>
           <li class="nav-item"><a class="nav-link" href="shopping cart.html">購物車</a></li>
           <li class="nav-item"><a class="nav-link" href="membership.html">會員登入</a></li>
@@ -209,7 +319,7 @@
   </div>
 
   <!-- Footer -->
-   <footer class="text-center">
+  <footer class="text-center">
     <div class="container">
       <div class="row">
         <div class="col-md-3">
@@ -249,3 +359,8 @@
       © 2025 神秘塔羅
     </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

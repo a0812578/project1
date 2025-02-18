@@ -8,24 +8,44 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
   <style>
+            @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
     body {
       background: #0d0d0d;
       color: #e0e0e0;
-      font-family: 'Cinzel Decorative', serif;
+      font-family: 'Cinzel', serif;
+      /* 統一字體 */
     }
 
     /* Navbar */
     .navbar {
-      background: rgba(0, 0, 0, 0.85);
+      background: #2c2c2c;
+      /* 深灰色背景 */
     }
 
     .navbar-brand,
     .nav-link {
-      color: #e0e0e0 !important;
+      color: #e0dcd3 !important;
+      /* 文字顏色設為淺灰色 */
+      font-weight: 700;
+      font-size: 1.1rem;
+
     }
 
     .nav-link.active {
       color: #c59d5f !important;
+      /* 當選中時，導航列文字會變為金色 */
+    }
+
+    /* Hamburger menu color */
+    .navbar-toggler {
+      border-color: #c59d5f;
+      /* 設定邊框顏色 */
+    }
+
+    .navbar-toggler-icon {
+      background-color: #c59d5f;
+      /* 設定漢堡選單顏色 */
     }
 
     /* Carousel */
@@ -105,22 +125,32 @@
       padding: 10px 15px;
       border-radius: 5px;
     }
-  </style>
-  <script>
-    window.onscroll = function () { scrollFunction() };
-    function scrollFunction() {
-      var mybutton = document.getElementById("myBtn");
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        mybutton.style.display = "block";
-      } else {
-        mybutton.style.display = "none";
+
+    /* 小螢幕的樣式調整 */
+    @media (max-width: 768px) {
+      .navbar {
+        background: #2c2c2c;
+      }
+
+      .navbar-toggler {
+        border-color: #c59d5f;
+        /* 漢堡選單邊框顏色 */
+      }
+
+      .navbar-toggler-icon {
+        background-color: #c59d5f;
+        /* 漢堡選單顏色 */
+      }
+
+      .nav-link {
+        font-size: 1.1rem;
+        /* 增加字體大小，方便閱讀 */
       }
     }
-    function topFunction() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-  </script>
+  </style>
+
+
+
 </head>
 
 <body>
@@ -157,21 +187,21 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="https://dummyimage.com/1200x500/000000/444444" class="d-block w-100" alt="Slide 1">
+        <img src="./image/解開命運奧秘.png" class="d-block w-100" alt="Slide 1">
         <div class="carousel-caption d-none d-md-block">
           <h1>揭開命運奧秘</h1>
           <p>塔羅牌將引領你邁向未知的未來</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="https://dummyimage.com/1200x500/111111/555555" class="d-block w-100" alt="Slide 2">
+        <img src="./image/心靈之旅.png" class="d-block w-100" alt="Slide 2">
         <div class="carousel-caption d-none d-md-block">
           <h1>探索心靈之旅</h1>
           <p>每張卡牌都蘊含無限啟示</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="https://dummyimage.com/1200x500/222222/666666" class="d-block w-100" alt="Slide 3">
+        <img src="./image/預約占卜體驗.png" class="d-block w-100" alt="Slide 3">
         <div class="carousel-caption d-none d-md-block">
           <h1>預約占卜體驗</h1>
           <p>與專業塔羅師共解未來謎題</p>
