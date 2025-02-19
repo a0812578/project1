@@ -177,7 +177,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             window.cart = new Cart()
             let products
-            const url = './shop.json'
+            const url = 'https://raw.githubusercontent.com/a0812578/project1/refs/heads/main/shop.json'
             function addToCart(name, img, price) {
                 if (!window.cart) {
                     console.error("❌ 錯誤：購物車未初始化！")
