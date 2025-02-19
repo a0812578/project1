@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
     <script src="./js/forCart.js"></script>
+    <link rel="icon" href="./image/icon.png">
     <style>
         /* 整體背景與字體設定 */
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
@@ -174,23 +175,22 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // 初始化全域購物車物件
-            window.cart = new Cart();
-            let products;
-            const url = './shop.json'; // 修改為本地端路徑
+            window.cart = new Cart()
+            let products
+            const url = './shop.json'
             function addToCart(name, img, price) {
                 if (!window.cart) {
-                    console.error("❌ 錯誤：購物車未初始化！");
+                    console.error("❌ 錯誤：購物車未初始化！")
                     return;
                 }
-                window.cart.addItem(name, img, price);
+                window.cart.addItem(name, img, price)
             }
 
             fetch(url)
                 .then(response => response.json())
                 .then(jsonObj => {
                     products = jsonObj;
-                    let html = '';
+                    let html = ''
                     products.forEach(product => {
                         html += `
                     <div class="col-md-4 col-sm-6 col-lg-3 mb-4">
@@ -204,14 +204,14 @@
                             </div>
                         </div>
                     </div>
-                `;
-                    });
+                `
+                    })
                     document.getElementById("productsList").innerHTML = html;
                 })
                 .catch(error => {
                     console.error("❌ 取得商品資料失敗：", error);
-                });
-        });
+                })
+        })
 
     </script>
 </head>
@@ -277,8 +277,8 @@
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h5>放圖片</h5>
-                    <img src="path-to-image.jpg" alt="Footer Image" class="img-fluid">
+                    <h5>神秘塔羅</h5>
+                    <img src="./image/icon.png" alt="Footer Image" class="img-fluid">
                 </div>
             </div>
         </div>

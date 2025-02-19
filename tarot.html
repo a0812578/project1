@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>塔羅牌自選抽牌</title>
+    <link rel="icon" href="./image/icon.png">
     <style>
         body {
             background: #0d0d0d;
@@ -32,7 +33,6 @@
             justify-content: center;
         }
 
-        /* 每張卡牌設定 perspective 方便 3D 翻轉 */
         .card {
             perspective: 1000px;
             position: relative;
@@ -56,12 +56,11 @@
 
         /* 點選後翻轉：正位 */
         .card.flipped:not(.reversed) .card-inner {
-            transform: rotateY(180deg);
+            transform: rotateY(180deg)
         }
 
-        /* 逆位：以自身中心旋轉180° */
         .card.reversed.flipped .card-inner {
-            transform: rotateY(180deg) rotateZ(180deg);
+            transform: rotateY(180deg) rotateZ(180deg)
         }
 
         /* 卡牌正反面 */
@@ -155,6 +154,106 @@
             cursor: pointer;
         }
 
+        /* Modal 背景遮罩 */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            /* 深色半透明背景 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        /* Modal 內容區 */
+        /* Modal 背景遮罩 */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        /* Modal 內容區 */
+        #modal .modal-content {
+            background: linear-gradient(135deg, #ffffff, #f7f7f7);
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.6s ease;
+        }
+
+        /* 進場動畫 */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal 內容區內文字樣式 */
+        #modal .modal-content h2 {
+            margin-top: 0;
+            font-size: 2.2rem;
+            color: #c59d5f;
+            margin-bottom: 20px;
+            font-family: 'Cinzel', serif;
+        }
+
+        #modal .modal-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #modal .modal-content ul {
+            list-style-type: disc;
+            margin: 0 auto 30px auto;
+            padding-left: 20px;
+            text-align: left;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        #modal .modal-content li {
+            margin-bottom: 10px;
+        }
+
+        #modal .modal-content button {
+            background: #c59d5f;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+
+        #modal .modal-content button:hover {
+            background: #a57a3d;
+        }
+
+
         /* 小螢幕 RWD 調整 */
         @media (max-width: 768px) {
             h1 {
@@ -221,7 +320,21 @@
 </head>
 
 <body>
-    <!-- 說明視窗（此處略） -->
+
+    <div id="modal">
+        <div class="modal-content">
+            <h2>說明</h2>
+            <p>歡迎來到塔羅牌占卜網站！為了獲得最佳占卜效果，請保持心境平和、全心投入占卜過程。</p>
+            <p>請參考以下提示：</p>
+            <ul>
+                <li>保持放鬆和平靜</li>
+                <li>對結果保持開放態度</li>
+                <li>占卜結果僅供參考，請理性判斷</li>
+            </ul>
+            <button id="agreeBtn">我知道了</button>
+        </div>
+    </div>
+
     <h1>請先在心裡想你的問題，再開始洗牌</h1>
     <button id="shuffleBtn">開始洗牌</button>
     <div id="cardContainer"></div>
@@ -247,6 +360,10 @@
     <button id="resetBtn" style="display:none;">重新選擇</button>
 
     <script>
+
+        document.getElementById("agreeBtn").addEventListener("click", function () {
+            document.getElementById("modal").style.display = "none";
+        });
         let selectedCards = [];
         const cardContainer = document.getElementById("cardContainer");
         const shuffleBtn = document.getElementById("shuffleBtn");
@@ -266,131 +383,131 @@
         function getCardName(path) {
             let parts = path.split("/");
             let filename = parts[parts.length - 1];
-            return filename.split(".")[0];
+            return filename.split(".")[0]
         }
 
         // 生成卡牌，每張卡使用 card-inner 包裹正反面
         cardPaths.forEach((path, index) => {
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.style.left = `${index * -20}px`;
+            const card = document.createElement("div")
+            card.classList.add("card")
+            card.style.left = `${index * -20}px`
 
-            const cardInner = document.createElement("div");
-            cardInner.classList.add("card-inner");
+            const cardInner = document.createElement("div")
+            cardInner.classList.add("card-inner")
 
-            const front = document.createElement("div");
-            front.classList.add("card-front");
-            front.style.backgroundImage = `url(${path})`;
+            const front = document.createElement("div")
+            front.classList.add("card-front")
+            front.style.backgroundImage = `url(${path})`
 
-            const back = document.createElement("div");
-            back.classList.add("card-back");
+            const back = document.createElement("div")
+            back.classList.add("card-back")
 
-            cardInner.appendChild(front);
-            cardInner.appendChild(back);
-            card.appendChild(cardInner);
+            cardInner.appendChild(front)
+            cardInner.appendChild(back)
+            card.appendChild(cardInner)
 
-            card.dataset.cardSrc = path;
+            card.dataset.cardSrc = path
             // 隨機決定是否逆位
-            const isReversed = Math.random() < 0.5 ? "true" : "false";
-            card.dataset.isReversed = isReversed;
+            const isReversed = Math.random() < 0.5 ? "true" : "false"
+            card.dataset.isReversed = isReversed
             if (isReversed === "true") {
-                card.classList.add("reversed");
+                card.classList.add("reversed")
             }
             // 初始禁用選牌
-            card.style.pointerEvents = "none";
+            card.style.pointerEvents = "none"
             // 點擊事件（洗牌後啟用）
-            card.addEventListener("click", handleCardClick);
-            cardContainer.appendChild(card);
+            card.addEventListener("click", handleCardClick)
+            cardContainer.appendChild(card)
         });
 
         function checkSelection() {
             if (selectedCards.length === 3) {
-                document.getElementById("result").style.display = "flex";
+                document.getElementById("result").style.display = "flex"
 
-                const pastImg = document.getElementById("pastCard");
-                pastImg.src = selectedCards[0].src;
-                pastImg.style.transform = selectedCards[0].reversed ? "rotate(180deg)" : "none";
-                document.getElementById("pastDesc").innerText = getCardName(selectedCards[0].src) + (selectedCards[0].reversed ? " (逆位)" : "");
+                const pastImg = document.getElementById("pastCard")
+                pastImg.src = selectedCards[0].src
+                pastImg.style.transform = selectedCards[0].reversed ? "rotate(180deg)" : "none"
+                document.getElementById("pastDesc").innerText = getCardName(selectedCards[0].src) + (selectedCards[0].reversed ? " (逆位)" : "")
 
-                const presentImg = document.getElementById("presentCard");
-                presentImg.src = selectedCards[1].src;
-                presentImg.style.transform = selectedCards[1].reversed ? "rotate(180deg)" : "none";
-                document.getElementById("presentDesc").innerText = getCardName(selectedCards[1].src) + (selectedCards[1].reversed ? " (逆位)" : "");
+                const presentImg = document.getElementById("presentCard")
+                presentImg.src = selectedCards[1].src
+                presentImg.style.transform = selectedCards[1].reversed ? "rotate(180deg)" : "none"
+                document.getElementById("presentDesc").innerText = getCardName(selectedCards[1].src) + (selectedCards[1].reversed ? " (逆位)" : "")
 
-                const futureImg = document.getElementById("futureCard");
-                futureImg.src = selectedCards[2].src;
-                futureImg.style.transform = selectedCards[2].reversed ? "rotate(180deg)" : "none";
-                document.getElementById("futureDesc").innerText = getCardName(selectedCards[2].src) + (selectedCards[2].reversed ? " (逆位)" : "");
+                const futureImg = document.getElementById("futureCard")
+                futureImg.src = selectedCards[2].src
+                futureImg.style.transform = selectedCards[2].reversed ? "rotate(180deg)" : "none"
+                document.getElementById("futureDesc").innerText = getCardName(selectedCards[2].src) + (selectedCards[2].reversed ? " (逆位)" : "")
 
                 cardContainer.style.display = "none";
-                document.getElementById("resetBtn").style.display = "inline-block";
+                document.getElementById("resetBtn").style.display = "inline-block"
                 // 顯示預約解牌按鈕
-                document.getElementById("appointmentBtn").style.display = "inline-block";
+                document.getElementById("appointmentBtn").style.display = "inline-block"
                 // 隱藏洗牌按鈕
-                shuffleBtn.style.display = "none";
+                shuffleBtn.style.display = "none"
             }
         }
 
         document.getElementById("resetBtn").addEventListener("click", () => {
-            selectedCards = [];
+            selectedCards = []
             document.querySelectorAll(".card").forEach(card => {
-                card.classList.remove("flipped");
+                card.classList.remove("flipped")
             });
-            document.getElementById("result").style.display = "none";
+            document.getElementById("result").style.display = "none"
             cardContainer.style.display = "flex";
-            document.getElementById("resetBtn").style.display = "none";
-            document.getElementById("appointmentBtn").style.display = "none";
-            shuffleBtn.style.display = "inline-block";
+            document.getElementById("resetBtn").style.display = "none"
+            document.getElementById("appointmentBtn").style.display = "none"
+            shuffleBtn.style.display = "inline-block"
         });
 
         shuffleBtn.addEventListener("click", () => {
-            shuffleCards();
-            document.querySelector("h1").innerText = "選擇三張牌";
+            shuffleCards()
+            document.querySelector("h1").innerText = "選擇三張牌"
         });
 
         function shuffleCards() {
             const cards = document.querySelectorAll(".card");
             cards.forEach(card => {
-                card.style.pointerEvents = "none";
+                card.style.pointerEvents = "none"
                 card.style.transition = "transform 0.5s ease, left 0.5s ease, top 0.5s ease";
-                const randomX = Math.random() * 200 - 150;
-                const randomY = Math.random() * 200 - -150;
-                card.style.transform = `rotate(${Math.random() * 180}deg)`;
-                card.style.left = `${randomX}px`;
-                card.style.top = `${randomY}px`;
+                const randomX = Math.random() * 200 - 150
+                const randomY = Math.random() * 200 - -150
+                card.style.transform = `rotate(${Math.random() * 180}deg)`
+                card.style.left = `${randomX}px`
+                card.style.top = `${randomY}px`
             });
             setTimeout(() => {
                 cards.forEach((card, index) => {
                     card.style.transition = "transform 1s ease, left 1s ease, top 1s ease";
-                    card.style.transform = "rotate(0deg)";
-                    card.style.left = `${index * -20}px`;
+                    card.style.transform = "rotate(0deg)"
+                    card.style.left = `${index * -20}px`
                     card.style.top = "0px";
-                    const cardInner = card.querySelector(".card-inner");
-                    cardInner.style.transform = "";
+                    const cardInner = card.querySelector(".card-inner")
+                    cardInner.style.transform = ""
                 });
                 cards.forEach(card => {
                     card.classList.add("hoverable");
                     card.style.pointerEvents = "auto";
                 });
-            }, 1500);
+            }, 1500)
         }
 
         function handleCardClick() {
             if (this.classList.contains("flipped")) {
-                this.classList.remove("flipped");
+                this.classList.remove("flipped")
                 selectedCards = selectedCards.filter(obj => obj.src !== this.dataset.cardSrc);
             } else {
                 if (selectedCards.length < 3) {
-                    this.classList.add("flipped");
+                    this.classList.add("flipped")
                     selectedCards.push({
                         src: this.dataset.cardSrc,
                         reversed: this.dataset.isReversed === "true"
                     });
                 } else {
-                    alert("只能選擇3張牌！");
+                    alert("只能選擇3張牌！")
                 }
             }
-            checkSelection();
+            checkSelection()
         }
     </script>
 </body>
